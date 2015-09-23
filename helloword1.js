@@ -1,2 +1,5 @@
-var pizzaToppings = ['tomato sauce', 'cheese', 'pepperoni'];
-console.log(pizzaToppings);
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+function even (number) {
+	return number % 2 === 0;
+}
+console.log(numbers.filter(even));
