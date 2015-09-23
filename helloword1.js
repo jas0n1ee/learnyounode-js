@@ -1,2 +1,3 @@
-var example = 123456789;
+var example = 1.5;
+example = Math.round(example)
 console.log(example)
