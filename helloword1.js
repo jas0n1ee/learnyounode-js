@@ -1,3 +1,3 @@
-var example = 1.5;
-example = Math.round(example)
-console.log(example)
+var n = 128;
+n = n.toString();
+console.log(n);
