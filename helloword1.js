@@ -1,3 +1,2 @@
-var example = 'pizza is alright';
-example = example.replace('alright','wonderful');
+var example = 123456789;
 console.log(example)
