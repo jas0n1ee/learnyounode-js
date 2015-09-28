@@ -1,4 +1,4 @@
-function whatever (food) {
-	return food + ' tasted really good.';
+function math (a, b, c) {
+	return a + b * c;
 }
-console.log(whatever('bananas'))
+console.log(math(53, 61, 67))
