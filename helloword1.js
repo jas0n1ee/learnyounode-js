@@ -1,4 +1,6 @@
-var pets = ['cat', 'dog', 'rat']; 
-for (var i = 0; i< 3; i++)
-	pets[i] = pets[i] + 's';
-console.log(pets)
+var pizza = {
+	toppings: ['cheese', 'sauce', 'pepperoni'],
+	crust: 'deep dish',
+	serves: 2
+}
+console.log(pizza)
