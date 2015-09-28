@@ -1,6 +1,13 @@
-For someone who has zero javascript knowledge  
+For someone who has javascript foundation  
+If you dont have, see branch javascript
 Install Node from [nodejs.org](https://nodejs.org/en/)  
-run `sudo npm install -g javascripting`  
+run `sudo npm install -g learnyounode`  
 then  
-run `javascripting`  
-Hereby update some sample code for quick reference later
+run `learnyounode`  
+Hereby update some sample code for quick reference later  
+
+Also checkout other nps learning modules like  
+`npm install -g git-it`  
+...
+
+All resource comes from [nodeschool.io](http://nodeschool.io/)
