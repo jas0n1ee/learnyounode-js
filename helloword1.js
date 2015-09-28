@@ -1,10 +1,15 @@
-var fs = require('fs');
 var path = require('path');
-function filter(err, files) {
-	if (err)
-		return;
-	for(var i = 0; i < files.length; i++)
-		if (path.extname(files[i]) == ('.' + process.argv[3]))
-			console.log(files[i]);
+var fs = require('fs');
+module.exports = function(dir, ext, callback) {
+	var list = [];
+	fs.readdir(dir,function(err, files) {
+		if (err)
+			return callback(err, list);
+		files.forEach(function(file) {
+			if(path.extname(file) == ('.' + ext)) {
+				list.push(file)
+			}
+		});
+		return callback(null, list);
+	});
 }
-fs.readdir(process.argv[2],filter);
