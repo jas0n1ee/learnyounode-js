@@ -1,7 +1,10 @@
-function callback (err, data) {
+var fs = require('fs');
+var path = require('path');
+function filter(err, files) {
 	if (err)
 		return;
-	console.log(data.toString().split('\n').length-1)
+	for(var i = 0; i < files.length; i++)
+		if (path.extname(files[i]) == ('.' + process.argv[3]))
+			console.log(files[i]);
 }
-var fs = require('fs')
-var files = fs.readFile(process.argv[2],callback)
+fs.readdir(process.argv[2],filter);
