@@ -21,7 +21,7 @@ function callback(req,res) {
 			unixtime : date.getTime()
 		});
 		res.write(json);
-		rew.end();
+		res.end();
 	}
 }
 
