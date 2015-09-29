@@ -1,5 +1,5 @@
 For someone who has javascript foundation  
-If you dont have, see branch javascript
+If you dont have, see branch [javascript](https://github.com/jas0n1ee/learnyounode-js/tree/javascript)  
 Install Node from [nodejs.org](https://nodejs.org/en/)  
 run `sudo npm install -g learnyounode`  
 then  
