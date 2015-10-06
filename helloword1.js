@@ -1,2 +1,3 @@
 var addon = require('./build/Release/addon');
-console.log(addon.hello());
+var a=3,b=4
+console.log(addon.add(a,b));
