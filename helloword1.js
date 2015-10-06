@@ -1,2 +1,2 @@
 var addon = require('./build/Release/addon');
-addon(console.log);
+console.log(addon('hello').msg + addon('world').msg)
