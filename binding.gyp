@@ -2,7 +2,13 @@
   "targets":[
     {
       "target_name": "addon",
-      "sources": [ "hello.cc" ]
+      "sources": [ "addon.cc", "hello.cc" ],
+      "include_dirs": [                                                                                          
+        "<!(node -e \"require('nan')\")"
+       ],
+      "libraries": [
+        "<!@(pkg-config --libs opencv)"
+      ]
     }
   ]
 }

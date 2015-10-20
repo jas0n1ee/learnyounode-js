@@ -1,38 +1,59 @@
-#include <node.h>
+#include "hello.h"
+
 namespace demo {
-
-using v8::Exception;
-using v8::FunctionCallbackInfo;
-using v8::Function;
-using v8::FunctionTemplate;
-using v8::Isolate;
-using v8::Local;
-using v8::Number;
-using v8::Object;
-using v8::String;
-using v8::Value;
-
-void MyFunction(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = args.GetIsolate();
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "hello world"));
-}
-
-void CreateFunction(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = args.GetIsolate();
-
-  Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, MyFunction);
-  Local<Function> fn = tpl->GetFunction();
-
-  // omit this to make it anonymous
-  fn->SetName(String::NewFromUtf8(isolate, "theFunction"));
-
-  args.GetReturnValue().Set(fn);
-}
-
-void init(Local<Object> exports, Local<Object> module) {
-    NODE_SET_METHOD(module, "exports", CreateFunction);
-}
-
-NODE_MODULE(addon,init)
+    
+    Nan::Persistent<v8::Function> Hello::constructor;
+    
+    Hello::Hello(int c) {
+        _cam.open(c);
+    }
+    
+    Hello::~Hello() {
+    }
+    
+    void Hello::Init(v8::Local<v8::Object> exports) {
+        Nan::HandleScope scope;
+        
+        // Prepare constructor template
+        v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
+        tpl->SetClassName(Nan::New("Hello").ToLocalChecked());
+        tpl->InstanceTemplate()->SetInternalFieldCount(1);
+        
+        // Prototype
+        Nan::SetPrototypeMethod(tpl, "imshow", imshow);
+        
+        constructor.Reset(tpl->GetFunction());
+        exports->Set(Nan::New("Hello").ToLocalChecked(), tpl->GetFunction());
+    }
+    
+    void Hello::New(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+        
+        if (info.IsConstructCall()) {
+            // Invoked as constructor: `new Hello(...)`
+            double value = info[0]->IsUndefined() ? 0 : info[0]->NumberValue();
+            Hello* obj = new Hello(value);
+            obj->Wrap(info.This());
+            info.GetReturnValue().Set(info.This());
+        } else {
+            // Invoked as plain function `Hello(...)`, turn into construct call.
+            const int argc = 1;
+            v8::Local<v8::Value> argv[argc] = { info[0] };
+            v8::Local<v8::Function> cons = Nan::New<v8::Function>(constructor);
+            info.GetReturnValue().Set(cons->NewInstance(argc, argv));
+        }
+    }
+    
+    void Hello::imshow(const Nan::FunctionCallbackInfo<v8::Value>& args) {
+        
+        Hello* obj = ObjectWrap::Unwrap<Hello>(args.Holder());
+        while(1)
+        {
+            Mat im;
+            obj->_cam>>im;
+            cv::imshow("test",im);
+        }
+        
+        args.GetReturnValue().Set(0);
+    }
 }
 
